@@ -8,6 +8,12 @@ import routes from './routes/index.js';
 const app  = express();
 const PORT = process.env.PORT || 3001;
 
+// ── Trust proxy ───────────────────────────────────────────────
+// Railway, Render e Vercel ficam atrás de um proxy reverso que injeta
+// X-Forwarded-For. Sem isso o express-rate-limit lança ValidationError.
+// O valor 1 significa "confiar em um nível de proxy" (o da plataforma).
+app.set('trust proxy', 1);
+
 // ── Segurança: headers HTTP ───────────────────────────────────
 // Helmet define ~15 headers defensivos automaticamente:
 // X-Content-Type-Options, X-Frame-Options, HSTS, CSP, etc.
