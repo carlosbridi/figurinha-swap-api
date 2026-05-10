@@ -44,6 +44,8 @@ const globalLimiter = rateLimit({
 });
 app.use('/api', globalLimiter);
 
+app.set('trust proxy', 1);
+
 // ── Rate limiting estrito para auth ───────────────────────────
 // Máx. 10 tentativas de login/registro por IP a cada 15 minutos
 // Dificulta ataques de força bruta e credential stuffing
