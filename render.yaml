@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: figurinha-swap-api
+    runtime: node
+    buildCommand: npm install
+    startCommand: node src/server.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true   # Render gera automaticamente
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: DATABASE_URL
+        fromDatabase:
+          name: figurinha-swap-db
+          property: connectionString
+
+databases:
+  - name: figurinha-swap-db
+    databaseName: figurinha_swap
+    user: figurinha_swap_user
+    plan: free
