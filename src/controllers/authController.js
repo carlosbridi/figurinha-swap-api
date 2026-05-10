@@ -17,7 +17,6 @@ export async function register(req, res) {
   }
 
   try {
-    console.log("here!!")
     const exists = await pool.query('SELECT id FROM users WHERE email = $1', [email.toLowerCase()]);
     if (exists.rows.length) {
       return res.status(409).json({ error: 'E-mail já cadastrado.' });
